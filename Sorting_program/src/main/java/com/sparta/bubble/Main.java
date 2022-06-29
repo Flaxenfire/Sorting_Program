@@ -1,4 +1,4 @@
-package com.sparta.bubble;
+/*package com.sparta.bubble;
 
 import java.util.Scanner;
 
@@ -26,4 +26,4 @@ public class Main {
         }
         System.out.println(bubble.sort(numList, input));
     }
-}
+}*/
