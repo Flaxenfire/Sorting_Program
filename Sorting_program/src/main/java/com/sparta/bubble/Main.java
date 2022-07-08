@@ -1,29 +1,37 @@
-/*package com.sparta.bubble;
+package com.sparta.bubble;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
-
 public class Main {
+
+    public static Logger logger = LogManager.getLogger("My Logger");
+
     public static void main (String [] args){
 
-        Bubble_sort bubble = new Bubble_sort();
-
+        Printer printer = new Printer();
         int input = 0;
-        while (input < 10 || input > 100){
-            System.out.println("Please input a number between 10 and 100:");
-            Scanner sc1 = new Scanner(System.in);
-            String a = sc1.nextLine();
-            String b = a.replaceAll("[^0-9]", "0");
-            input = Integer.parseInt(b);
+        while (input < 10 || input > 100 ){
+            try {
+                printer.printQuestion("Please input a number between 10 and 100:");
+                Scanner sc1 = new Scanner(System.in);
+                String inputStr = sc1.nextLine();
+                String inputStr2 = inputStr.replaceAll("[^0-9]", "0");
+                input = Integer.parseInt(inputStr2);
+            }
+            catch (NumberFormatException e){
+                e.printStackTrace();
+                input = 0;
+                logger.info("Number out of int range");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                input = 0;
+                logger.info("Other input exception");
+            }
         }
-
-        int [] numList = new int[input];
-        int min = 1;
-        int max = 1000;
-
-        for (int i = 0; i < input; i++){
-            numList [i] = (int)Math.floor(Math.random()*(max-min+1)+min);
-        }
-        System.out.println(bubble.sort(numList, input));
+        Starter starter = new Starter(input);
     }
-}*/
+}
