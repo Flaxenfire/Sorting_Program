@@ -6,12 +6,11 @@ public class Merge_sort implements Sorter {
 
     public Merge_sort (int[] numList){
         this.numList = numList;
-        this.sortArray(numList);
     }
 
     @Override
     public int[] sortArray(int[] arrayToSort) {
-        return this.mergeSort(numList, numList.length);
+        return this.mergeSort(arrayToSort, arrayToSort.length);
     }
 
     public int [] mergeSort(int[] a, int n) {

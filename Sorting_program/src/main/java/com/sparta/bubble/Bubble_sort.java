@@ -11,7 +11,6 @@ public class Bubble_sort implements Sorter {
 
     public Bubble_sort (int [] numList){
         this.numList = numList;
-        this.sortArray(numList);
     }
 
     public Bubble_sort() {
