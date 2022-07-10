@@ -24,14 +24,15 @@ public class Main {
             catch (NumberFormatException e){
                 e.printStackTrace();
                 input = 0;
-                logger.info("Number out of int range");
+                logger.error("Number out of int range");
             }
             catch (Exception e){
                 e.printStackTrace();
                 input = 0;
-                logger.info("Other input exception");
+                logger.error("Other input exception");
             }
         }
+        logger.info("Input accepted");
         Starter starter = new Starter(input);
     }
 }

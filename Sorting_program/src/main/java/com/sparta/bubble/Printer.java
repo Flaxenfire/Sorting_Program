@@ -18,4 +18,20 @@ public class Printer {
     public void printQuestion (String question){
         System.out.println(question);
     }
+
+    public void printTime (long time, String sorter){
+        System.out.println(sorter + " sort took " + time + " milliseconds");
+    }
+
+    public void speed (long speed, String fastest, String slowest){
+        System.out.println(fastest + " was faster than " + slowest + " by " + speed + " milliseconds");
+    }
+
+    public void sameSpeed(){
+        System.out.println("Both sorts were the same speed");
+    }
+
+    public void space(){
+        System.out.println("");
+    }
 }

@@ -11,6 +11,7 @@ public class Starter {
     public static Logger logger = LogManager.getLogger("My Logger");
 
     Printer printer = new Printer();
+    Generator generator = new Generator();
 
     private int input;
 
@@ -18,11 +19,16 @@ public class Starter {
     public Starter(int input) {
 
         this.input = input;
-        int [] numList1 = this.generate(input);
-        int [] numList2 = this.generate(input);
+        int [] numList1 = generator.generate(input);
+        int [] numList2 = generator.generate(input);
         int [] sorted1 = new int[0];
         int [] sorted2 = new int[0];
+        long startTime;
+        long endTime;
+        long totalTime1 = 0;
+        long totalTime2 = 0;
         printer.print(numList1, numList2, false);
+        printer.space();
         boolean valid = false;
         while (valid == false){
             try{
@@ -32,18 +38,33 @@ public class Starter {
                 switch (sorter){
                     case "1":
                         Sorter bubbleSort1 = new Bubble_sort(numList1);
+                        startTime = System.nanoTime();
                         sorted1 = bubbleSort1.sortArray(numList1);
+                        endTime = System.nanoTime();
+                        totalTime1 = endTime - startTime;
+                        printer.printTime(totalTime1, "Bubble");
                         valid = true;
+                        logger.info("First sort bubble");
                         break;
                     case "2":
                         Sorter mergeSort1 = new Merge_sort(numList1);
+                        startTime = System.nanoTime();
                         sorted1 = mergeSort1.sortArray(numList1);
+                        endTime = System.nanoTime();
+                        totalTime1 = endTime - startTime;
+                        printer.printTime(totalTime1, "Merge");
                         valid = true;
+                        logger.info("First sort merge");
                         break;
                     case "3":
                         Sorter treeSort1 = new Tree_sort(numList1);
+                        startTime = System.nanoTime();
                         sorted1 = treeSort1.sortArray(numList1);
+                        endTime = System.nanoTime();
+                        totalTime1 = endTime - startTime;
+                        printer.printTime(totalTime1, "Binary Tree");
                         valid = true;
+                        logger.info("First sort tree");
                         break;
                     default:
                         break;
@@ -52,10 +73,11 @@ public class Starter {
             catch (Exception e){
                 e.printStackTrace();
                 valid = false;
-                logger.error("Input exception found");
+                logger.error("Input exception found on first sort");
             }
 
         }
+        printer.space();
         valid = false;
         while (valid == false){
             try{
@@ -65,18 +87,33 @@ public class Starter {
                 switch (sorter){
                     case "1":
                         Sorter bubbleSort2 = new Bubble_sort(numList2);
-                        sorted2 = bubbleSort2.sortArray(numList1);
+                        startTime = System.nanoTime();
+                        sorted2 = bubbleSort2.sortArray(numList2);
+                        endTime = System.nanoTime();
+                        totalTime2 = endTime - startTime;
+                        printer.printTime(totalTime2, "Bubble");
                         valid = true;
+                        logger.info("Second sort bubble");
                         break;
                     case "2":
                         Sorter mergeSort2 = new Merge_sort(numList2);
-                        sorted2 = mergeSort2.sortArray(numList1);
+                        startTime = System.nanoTime();
+                        sorted2 = mergeSort2.sortArray(numList2);
+                        endTime = System.nanoTime();
+                        totalTime2 = endTime - startTime;
+                        printer.printTime(totalTime2, "Merge");
                         valid = true;
+                        logger.info("Second sort merge");
                         break;
                     case "3":
                         Sorter treeSort2 = new Tree_sort(numList2);
-                        sorted2 = treeSort2.sortArray(numList1);
+                        startTime = System.nanoTime();
+                        sorted2 = treeSort2.sortArray(numList2);
+                        endTime = System.nanoTime();
+                        totalTime2 = endTime - startTime;
+                        printer.printTime(totalTime2, "Binary Tree");
                         valid = true;
+                        logger.info("Second sort tree");
                         break;
                     default:
                         break;
@@ -85,24 +122,25 @@ public class Starter {
             catch (Exception e){
                 e.printStackTrace();
                 valid = false;
-                logger.error("Input exception found");
+                logger.error("Input exception found on second sort");
             }
         }
+        printer.space();
         printer.print(sorted1, sorted2, true);
-        //Sorter comSort = new Bubble_sort(numList1, numList2);
-
-    }
-
-    // put in new class
-    public int[] generate(int input) {
-        int[] numList = new int[input];
-        int min = 1;
-        int max = 1000;
-        Random rand = new Random();
-
-        for (int i = 0; i < input; i++) {
-            numList[i] = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        printer.space();
+        logger.info("Sorted arrays printed");
+        if (totalTime1 > totalTime2){
+            printer.speed((totalTime1 - totalTime2), "Sort 2", "Sort 1");
+            logger.info("Second sort faster");
         }
-        return numList;
+        if (totalTime2 > totalTime1){
+            printer.speed((totalTime2 - totalTime1), "Sort 1", "Sort 2");
+            logger.info("First sort faster");
+        }
+        else {
+            printer.sameSpeed();
+            logger.info("Both sorts same speed");
+        }
+
     }
 }
